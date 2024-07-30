@@ -1,0 +1,13 @@
+$primary-color: #19ce13;
+$primary-color-light: #19ce1318;
+$secondary-color: #000;
+
+@font-face {
+  font-family: "Zing";
+  src: url("/public/fonts/zing.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Zing-Line";
+  src: url("/public/fonts/zing-line.otf") format("opentype");
+}
