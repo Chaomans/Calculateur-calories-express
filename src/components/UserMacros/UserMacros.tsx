@@ -57,7 +57,7 @@ const UserMacros = ({ macros, userInfos, coeffs }: UserMacrosProps) => {
           {userInfos.age} ans qui vise une{" "}
           <span className={styles.crit}>{goalType()}</span>, l'objectif est de
           consommer <span className={styles.crit}>{macros.calories}</span>{" "}
-          calories réparties sur{" "}
+          calories par jour réparties sur{" "}
           <span className={styles.crit}>{macros.proteins} g</span> de protéines,{" "}
           <span className={styles.crit}>{macros.glucids} g</span> de glucides,
           et <span className={styles.crit}>{macros.lipids} g</span> de lipides.
