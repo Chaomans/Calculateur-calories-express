@@ -6,6 +6,7 @@ export type Coefficients = {
 type Coefficient = {
   value: number;
   text: string;
+  type?: string;
 };
 
 export type UserInfos = {

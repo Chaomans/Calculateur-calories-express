@@ -28,32 +28,37 @@ function App() {
       {
         value: 1.1,
         text: "Travail de bureau ou peu actif et pas d'activité physique",
+        type: "Sédentaire",
       },
       {
         value: 1.2,
         text: "Travail de bureau ou peu actif et 1-2 séances par semaine",
+        type: "Moyennement actif",
       },
       {
         value: 1.3,
         text: "Travail actif avec 8000 pas quotidien et 2-4 séances par semaine",
+        type: "Actif",
       },
       {
         value: 1.5,
         text: "Travail actif avec 10000 pas quotidien et 3-5 séances par semaine",
+        type: "Très actif",
       },
       {
         value: 1.6,
         text: "Travail actif ou physique avec 10000 pas quotidien et 4-6 séances par semaine",
+        type: "Extrêmement actif",
       },
     ],
     goal: [
       {
         value: 0.7,
-        text: "Graisse rapide",
+        text: "Perte de graisse rapide",
       },
       {
         value: 0.8,
-        text: "Graisse progressive",
+        text: "Perte de graisse progressive",
       },
       {
         value: 1.15,
@@ -77,20 +82,20 @@ function App() {
       const proteins = weight * 2;
       const lipids = weight * 0.8;
       return {
-        calories,
-        proteins,
-        lipids,
-        glucids: (calories - proteins * 4 - lipids * 9) / 4,
+        calories: Math.round(calories),
+        proteins: Math.round(proteins),
+        lipids: Math.round(lipids),
+        glucids: Math.round((calories - proteins * 4 - lipids * 9) / 4),
       };
     }
 
     const proteins = weight * 1.6;
     const lipids = weight * 0.4;
     return {
-      calories,
-      proteins,
-      lipids,
-      glucids: (calories - proteins * 4 - lipids * 9) / 4,
+      calories: Math.round(calories),
+      proteins: Math.round(proteins),
+      lipids: Math.round(lipids),
+      glucids: Math.round((calories - proteins * 4 - lipids * 9) / 4),
     };
   };
 
@@ -115,7 +120,11 @@ function App() {
           defaultUserInfos={defaultUserInfos}
           handleSubmit={handleSubmit}
         />
-        <UserMacros macros={macros} userInfos={userInfos as UserInfos} />
+        <UserMacros
+          macros={macros}
+          userInfos={userInfos as UserInfos}
+          coeffs={coeffs}
+        />
       </main>
     </div>
   );

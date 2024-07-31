@@ -1,13 +1,14 @@
 $primary-color: #19ce13;
-$primary-color-light: #19ce1318;
+$primary-color-light: #e9fae9;
 $secondary-color: #000;
+$form-input-border-color: #d3d3d3;
 
 @font-face {
   font-family: "Zing";
-  src: url("/public/fonts/zing.otf") format("opentype");
+  src: url("/fonts/zing.otf") format("opentype");
 }
 
 @font-face {
   font-family: "Zing-Line";
-  src: url("/public/fonts/zing-line.otf") format("opentype");
+  src: url("/fonts/zing-line.otf") format("opentype");
 }

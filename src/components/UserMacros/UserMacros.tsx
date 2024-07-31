@@ -1,21 +1,67 @@
-import { Macros, UserInfos } from "../../utils/types";
+import { useEffect } from "react";
+import { Coefficients, Macros, UserInfos } from "../../utils/types";
+import styles from "./UserMacros.module.scss";
 
 type UserMacrosProps = {
   macros: Macros | null;
   userInfos: UserInfos;
+  coeffs: Coefficients;
 };
 
-const UserMacros = ({ macros, userInfos }: UserMacrosProps) => {
+const UserMacros = ({ macros, userInfos, coeffs }: UserMacrosProps) => {
+  const activityType = () => {
+    const typ =
+      coeffs.activity.filter((act) => act.value === userInfos.activity)[0]
+        .type ?? "";
+    if (userInfos.sex === "H" || typ.slice(-2) === "re")
+      return typ.toLowerCase();
+    return typ.toLowerCase().slice(0, -1) + "ve";
+  };
+
+  const goalType = () => {
+    return coeffs.goal
+      .filter((goal) => goal.value === userInfos.goal)[0]
+      .text.toLowerCase();
+  };
+
+  useEffect(() => {
+    if (macros) {
+      document.getElementById("macros")?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [macros]);
+
   return (
     macros && (
-      <div className="macros">
-        <div className="calories">{Math.round(macros.calories)} Cal</div>
-        <div className="other">
-          <div className="proteins">{Math.round(macros.proteins)} g</div>
-          <div className="glucids">{Math.round(macros.glucids)} g</div>
-          <div className="lipids">{Math.round(macros.lipids)} g</div>
+      <div id="macros" className={styles.macros}>
+        <div className={styles.calories}>
+          <p className={styles.macro}>
+            {macros.calories}
+            <br />
+            <span className={styles.unit}>calories</span>
+          </p>
         </div>
-        <div className="resume">dfezfezfezfez</div>
+        <div className={styles.other}>
+          <div className={styles.proteins}>
+            <p className={styles.macro}>{macros.proteins} g</p>
+          </div>
+          <div className={styles.glucids}>
+            <p className={styles.macro}>{macros.glucids} g</p>
+          </div>
+          <div className={styles.lipids}>
+            <p className={styles.macro}>{macros.lipids} g</p>
+          </div>
+        </div>
+        <p className={styles.resume}>
+          Pour {userInfos.sex === "H" ? "un homme" : "une femme"}{" "}
+          <span className={styles.crit}>{activityType()}</span> de{" "}
+          {userInfos.age} ans qui vise une{" "}
+          <span className={styles.crit}>{goalType()}</span>, l'objectif est de
+          consommer <span className={styles.crit}>{macros.calories}</span>{" "}
+          calories réparties sur{" "}
+          <span className={styles.crit}>{macros.proteins} g</span> de protéines,{" "}
+          <span className={styles.crit}>{macros.glucids} g</span> de glucides,
+          et <span className={styles.crit}>{macros.lipids} g</span> de lipides.
+        </p>
       </div>
     )
   );

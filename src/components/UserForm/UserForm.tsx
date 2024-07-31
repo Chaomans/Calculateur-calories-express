@@ -29,26 +29,23 @@ const UserForm = ({
   };
 
   const onChange = (value: string, id: string) => {
+    const newInfos: DefaultUserInfos = { ...infos };
     if (id === "sex") {
-      setInfos({
-        ...infos,
-        sex: value,
-      });
+      newInfos.sex = value;
+      setInfos({ ...newInfos });
     }
     if (id === "activity" || id === "goal") {
-      const newInfos = { ...infos };
       newInfos[id] = parseFloat(value);
-      setInfos(newInfos);
+      setInfos({ ...newInfos });
     }
     if (id === "age" || id === "weight" || id === "height") {
-      const newInfos = { ...infos };
       newInfos[id] = parseInt(value);
-      setInfos(newInfos);
+      setInfos({ ...newInfos });
     }
-    checkForm();
+    checkForm(newInfos);
   };
 
-  const checkForm = () => {
+  const checkForm = (infos: DefaultUserInfos) => {
     for (const [_, v] of Object.entries(infos)) {
       if (v === null) {
         return;
@@ -74,30 +71,41 @@ const UserForm = ({
         />
       </div>
       <div className={styles.sex}>
-        <label htmlFor="sex1" className={styles.label}>
-          Homme
-        </label>
-        <input
-          id="sex1"
-          name="sex"
-          value="H"
-          type="radio"
-          onClick={(e) => onChange(e.currentTarget.value, e.currentTarget.name)}
-          className={styles.input}
-          disabled={submitted}
-        />
-        <label htmlFor="sex2" className={styles.label}>
-          Femme
-        </label>
-        <input
-          id="sex2"
-          name="sex"
-          value="F"
-          type="radio"
-          onClick={(e) => onChange(e.currentTarget.value, e.currentTarget.name)}
-          className={styles.input}
-          disabled={submitted}
-        />
+        <p className={styles.sexLabel}>Sexe</p>
+        <div className={styles.radios}>
+          <div className={styles.radio}>
+            <label htmlFor="sex1" className={styles.label}>
+              Homme
+            </label>
+            <input
+              id="sex1"
+              name="sex"
+              value="H"
+              type="radio"
+              onClick={(e) =>
+                onChange(e.currentTarget.value, e.currentTarget.name)
+              }
+              className={styles.input}
+              disabled={submitted}
+            />
+          </div>
+          <div className={styles.radio}>
+            <label htmlFor="sex2" className={styles.label}>
+              Femme
+            </label>
+            <input
+              id="sex2"
+              name="sex"
+              value="F"
+              type="radio"
+              onClick={(e) =>
+                onChange(e.currentTarget.value, e.currentTarget.name)
+              }
+              className={styles.input}
+              disabled={submitted}
+            />
+          </div>
+        </div>
       </div>
       <div className={styles.height}>
         <label htmlFor="height" className={styles.label}>
@@ -136,9 +144,15 @@ const UserForm = ({
           id="activity"
           onChange={(e) => onChange(e.target.value, e.target.id)}
           disabled={submitted}
+          className={styles.select}
         >
           {coeffs.activity.map((coeff) => (
-            <option value={coeff.value} key={coeff.value}>
+            <option
+              value={coeff.value}
+              key={coeff.value}
+              className={styles.option}
+            >
+              <span className={styles.activityType}>{coeff.type}</span> -{" "}
               {coeff.text}
             </option>
           ))}
@@ -153,16 +167,21 @@ const UserForm = ({
           id="goal"
           onChange={(e) => onChange(e.target.value, e.target.id)}
           disabled={submitted}
+          className={styles.select}
         >
           {coeffs.goal.map((coeff) => (
-            <option value={coeff.value} key={coeff.value}>
+            <option
+              value={coeff.value}
+              key={coeff.value}
+              className={styles.option}
+            >
               {coeff.text}
             </option>
           ))}
         </select>
       </div>
 
-      <button className={styles.submit} disabled={!isValid}>
+      <button className={styles.submit} disabled={!isValid || submitted}>
         Calculer
       </button>
     </form>

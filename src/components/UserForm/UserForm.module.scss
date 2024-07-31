@@ -1,9 +1,21 @@
 @mixin label {
   font-weight: 600;
   margin-right: 30px;
+  width: 35%;
 }
 
 @mixin input-field {
+  border: 1px solid $form-input-border-color;
+  padding: 5px;
+  height: 30px;
+  max-width: 100px;
+  border-radius: 5px;
+
+  &:active:not(:disabled),
+  &:focus:not(:disabled) {
+    outline: 4px solid $primary-color;
+    border: none;
+  }
 }
 
 .form {
@@ -16,11 +28,113 @@
   align-items: flex-start;
   gap: 15px;
 
-  .age {
+  .age,
+  .height,
+  .weight {
     display: flex;
+    align-items: center;
+    width: 100%;
 
     .label {
       @include label;
+    }
+
+    .input {
+      @include input-field;
+    }
+  }
+
+  .sex {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .sexLabel {
+      @include label;
+    }
+    .radios {
+      display: flex;
+      gap: 30px;
+
+      .radio {
+        display: flex;
+        align-items: center;
+
+        .label {
+          margin-right: 10px;
+        }
+        .input {
+          appearance: none;
+          width: 20px;
+          height: 20px;
+          border: 2px solid $primary-color;
+          border-radius: 50%;
+          background-clip: content-box;
+          padding: 3px;
+
+          &:checked {
+            background-color: $primary-color;
+          }
+        }
+      }
+    }
+  }
+
+  .activity,
+  .goal {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .label {
+      @include label;
+    }
+
+    .select {
+      border: 1px solid $form-input-border-color;
+      padding: 5px;
+      height: 30px;
+      border-radius: 5px;
+      max-width: 55%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      outline: none;
+
+      // .option {
+      //   max-width: 55%;
+      //   display: flex;
+      //   position: relative;
+
+      //   &::after {
+      //     content: "";
+      //     position: absolute;
+      //     bottom: 0;
+      //     width: 100%;
+      //     border: 1px solid $form-input-border-color;
+      //   }
+      // }
+    }
+  }
+
+  .submit {
+    align-self: center;
+    height: 40px;
+    padding: 5px 8px;
+    width: 100px;
+    font-family: "Zing";
+    font-size: 18px;
+    font-weight: 500;
+    text-shadow: 1px 1px 5px #fff;
+    border-radius: 40px;
+    border: none;
+    outline: none;
+    background-color: $primary-color;
+    color: #000;
+    transition: 0.2s;
+
+    &:disabled {
+      background-color: #ddd;
+      color: #444;
     }
   }
 }
